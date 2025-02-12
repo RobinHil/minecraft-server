@@ -1,0 +1,35 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minecraft_server
+    tty: true
+    stdin_open: true
+    ports:
+      - "${PORT}:25565"
+    environment:
+      EULA: ${EULA}
+      TYPE: ${TYPE}
+      VERSION: ${VERSION}
+      DIFFICULTY: ${DIFFICULTY}
+      ICON: ${ICON}
+      SNOOPER_ENABLED: ${SNOOPER_ENABLED}
+      SPAWN_PROTECTION: ${SPAWN_PROTECTION}
+      MAX_MEMORY: ${MAX_MEMORY}
+      ENABLE_WHITELIST: ${ENABLE_WHITELIST}
+      WHITELIST: ${WHITELIST}
+      OVERRIDE_WHITELIST: ${OVERRIDE_WHITELIST}
+    volumes:
+      - ./icon.png:/icon.png
+      - minecraft_data:/data
+    networks:
+      - minecraft_network
+    restart: always
+
+volumes:
+  minecraft_data:
+    name: minecraft_data
+
+networks:
+  minecraft_network:
+    name: minecraft_network
+    driver: bridge
